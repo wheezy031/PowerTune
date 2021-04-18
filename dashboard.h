@@ -49,7 +49,8 @@ class DashBoard : public QObject
     Q_PROPERTY(qreal Inj READ Inj WRITE setInj NOTIFY injChanged)
     Q_PROPERTY(qreal Ign READ Ign WRITE setIgn NOTIFY ignChanged)
     Q_PROPERTY(qreal Dwell READ Dwell WRITE setDwell NOTIFY dwellChanged)
-    Q_PROPERTY(qreal BoostPres READ BoostPres WRITE setBoostPres NOTIFY boostPresChanged)
+    Q_PROPERTY(qreal BoostPres READ BoostPres WRITE setBoostPres NOTIFY BoostPresChanged)
+    Q_PROPERTY(qreal BoostPreskpa READ BoostPreskpa WRITE setBoostPreskpa NOTIFY BoostPreskpaChanged)
     Q_PROPERTY(qreal BoostDuty READ BoostDuty WRITE setBoostDuty NOTIFY boostDutyChanged)
     Q_PROPERTY(qreal MAFactivity READ MAFactivity WRITE setMAFactivity NOTIFY mAFactivityChanged)
     Q_PROPERTY(qreal O2volt_2 READ O2volt_2 WRITE setO2volt_2 NOTIFY o2volt_2Changed)
@@ -187,7 +188,9 @@ class DashBoard : public QObject
     Q_PROPERTY(qreal ambipress READ ambipress WRITE setambipress NOTIFY ambipressChanged)
 
     //Calculations
-    Q_PROPERTY(qreal Gear READ Gear WRITE setGear NOTIFY gearChanged)
+    Q_PROPERTY(qreal Gear READ Gear WRITE setGear NOTIFY GearChanged)
+    Q_PROPERTY(qreal GearCalculation READ GearCalculation WRITE setGearCalculation NOTIFY GearCalculationChanged)
+
     Q_PROPERTY(qreal Power READ Power WRITE setPower NOTIFY powerChanged)
     Q_PROPERTY(qreal Torque READ Torque WRITE setTorque NOTIFY torqueChanged)
     Q_PROPERTY(qreal AccelTimer READ AccelTimer WRITE setAccelTimer NOTIFY accelTimerChanged)
@@ -379,7 +382,74 @@ class DashBoard : public QObject
     Q_PROPERTY(int oilpressurelamp READ oilpressurelamp WRITE setoilpressurelamp NOTIFY oilpressurelampChanged)
     Q_PROPERTY(int overtempalarm READ overtempalarm WRITE setovertempalarm NOTIFY overtempalarmChanged)
     Q_PROPERTY(int alternatorfail READ alternatorfail WRITE setalternatorfail NOTIFY alternatorfailChanged)
+    Q_PROPERTY(int AuxTemp1 READ AuxTemp1 WRITE setAuxTemp1 NOTIFY AuxTemp1Changed)
 
+    Q_PROPERTY(qreal SteeringWheelAngle READ SteeringWheelAngle WRITE setSteeringWheelAngle NOTIFY SteeringWheelAngleChanged)
+
+    Q_PROPERTY(qreal sixtyfoottime READ sixtyfoottime WRITE setsixtyfoottime NOTIFY sixtyfoottimeChanged)
+    Q_PROPERTY(qreal sixtyfootspeed READ sixtyfootspeed WRITE setsixtyfootspeed NOTIFY sixtyfootspeedChanged)
+    Q_PROPERTY(qreal threehundredthirtyfoottime READ threehundredthirtyfoottime WRITE setthreehundredthirtyfoottime NOTIFY threehundredthirtyfoottimeChanged)
+    Q_PROPERTY(qreal threehundredthirtyfootspeed READ threehundredthirtyfootspeed WRITE setthreehundredthirtyfootspeed NOTIFY threehundredthirtyfootspeedChanged)
+    Q_PROPERTY(qreal eightmiletime READ eightmiletime WRITE seteightmiletime NOTIFY eightmiletimeChanged)
+    Q_PROPERTY(qreal eightmilespeed READ eightmilespeed WRITE seteightmilespeed NOTIFY eightmilespeedChanged)
+    Q_PROPERTY(qreal quartermiletime READ quartermiletime WRITE setquartermiletime NOTIFY quartermiletimeChanged)
+    Q_PROPERTY(qreal quartermilespeed READ quartermilespeed WRITE setquartermilespeed NOTIFY quartermilespeedChanged)
+    Q_PROPERTY(qreal thousandfoottime READ thousandfoottime WRITE setthousandfoottime NOTIFY thousandfoottimeChanged)
+    Q_PROPERTY(qreal thousandfootspeed READ thousandfootspeed WRITE setthousandfootspeed NOTIFY thousandfootspeedChanged)
+    Q_PROPERTY(qreal zerotohundredt READ zerotohundredt WRITE setzerotohundredt NOTIFY zerotohundredtChanged)
+    Q_PROPERTY(qreal hundredtotwohundredtime READ hundredtotwohundredtime WRITE sethundredtotwohundredtime NOTIFY hundredtotwohundredtimeChanged)
+    Q_PROPERTY(qreal twohundredtothreehundredtime READ twohundredtothreehundredtime WRITE settwohundredtothreehundredtime NOTIFY twohundredtothreehundredtimeChanged)
+    Q_PROPERTY(qreal reactiontime READ reactiontime WRITE setreactiontime NOTIFY reactiontimeChanged)
+    Q_PROPERTY(qreal IGBTPhaseATemp READ IGBTPhaseATemp WRITE setIGBTPhaseATemp NOTIFY IGBTPhaseATempChanged)
+    Q_PROPERTY(qreal IGBTPhaseBTemp READ IGBTPhaseBTemp WRITE setIGBTPhaseBTemp NOTIFY IGBTPhaseBTempChanged)
+    Q_PROPERTY(qreal IGBTPhaseCTemp READ IGBTPhaseCTemp WRITE setIGBTPhaseCTemp NOTIFY IGBTPhaseCTempChanged)
+    Q_PROPERTY(qreal GateDriverTemp READ GateDriverTemp WRITE setGateDriverTemp NOTIFY GateDriverTempChanged)
+    Q_PROPERTY(qreal ControlBoardTemp READ ControlBoardTemp WRITE setControlBoardTemp NOTIFY ControlBoardTempChanged)
+    Q_PROPERTY(qreal RtdTemp1 READ RtdTemp1 WRITE setRtdTemp1 NOTIFY RtdTemp1Changed)
+    Q_PROPERTY(qreal RtdTemp2 READ RtdTemp2 WRITE setRtdTemp2 NOTIFY RtdTemp2Changed)
+    Q_PROPERTY(qreal RtdTemp3 READ RtdTemp3 WRITE setRtdTemp3 NOTIFY RtdTemp3Changed)
+    Q_PROPERTY(qreal RtdTemp4 READ RtdTemp4 WRITE setRtdTemp4 NOTIFY RtdTemp4Changed)
+    Q_PROPERTY(qreal RtdTemp5 READ RtdTemp5 WRITE setRtdTemp5 NOTIFY RtdTemp5Changed)
+    Q_PROPERTY(qreal EMotorTemperature READ EMotorTemperature WRITE setEMotorTemperature NOTIFY EMotorTemperatureChanged)
+    Q_PROPERTY(qreal TorqueShudder READ TorqueShudder WRITE setTorqueShudder NOTIFY TorqueShudderChanged)
+    Q_PROPERTY(qreal DigInput1FowardSw READ DigInput1FowardSw WRITE setDigInput1FowardSw NOTIFY DigInput1FowardSwChanged)
+    Q_PROPERTY(qreal DigInput2ReverseSw READ DigInput2ReverseSw WRITE setDigInput2ReverseSw NOTIFY DigInput2ReverseSwChanged)
+    Q_PROPERTY(qreal DigInput3BrakeSw READ DigInput3BrakeSw WRITE setDigInput3BrakeSw NOTIFY DigInput3BrakeSwChanged)
+    Q_PROPERTY(qreal DigInput4RegenDisableSw READ DigInput4RegenDisableSw WRITE setDigInput4RegenDisableSw NOTIFY DigInput4RegenDisableSwChanged)
+    Q_PROPERTY(qreal DigInput5IgnSw READ DigInput5IgnSw WRITE setDigInput5IgnSw NOTIFY DigInput5IgnSwChanged)
+    Q_PROPERTY(qreal DigInput6StartSw READ DigInput6StartSw WRITE setDigInput6StartSw NOTIFY DigInput6StartSwChanged)
+    Q_PROPERTY(qreal DigInput7Bool READ DigInput7Bool WRITE setDigInput7Bool NOTIFY DigInput7BoolChanged)
+    Q_PROPERTY(qreal DigInput8Bool READ DigInput8Bool WRITE setDigInput8Bool NOTIFY DigInput8BoolChanged)
+    Q_PROPERTY(qreal EMotorAngle READ EMotorAngle WRITE setEMotorAngle NOTIFY EMotorAngleChanged)
+    Q_PROPERTY(qreal EMotorSpeed READ EMotorSpeed WRITE setEMotorSpeed NOTIFY EMotorSpeedChanged)
+    Q_PROPERTY(qreal ElectricalOutFreq READ ElectricalOutFreq WRITE setElectricalOutFreq NOTIFY ElectricalOutFreqChanged)
+    Q_PROPERTY(qreal DeltaResolverFiltered READ DeltaResolverFiltered WRITE setDeltaResolverFiltered NOTIFY DeltaResolverFilteredChanged)
+    Q_PROPERTY(qreal PhaseACurrent READ PhaseACurrent WRITE setPhaseACurrent NOTIFY PhaseACurrentChanged)
+    Q_PROPERTY(qreal PhaseBCurrent READ PhaseBCurrent WRITE setPhaseBCurrent NOTIFY PhaseBCurrentChanged)
+    Q_PROPERTY(qreal PhaseCCurrent READ PhaseCCurrent WRITE setPhaseCCurrent NOTIFY PhaseCCurrentChanged)
+    Q_PROPERTY(qreal DCBusCurrent READ DCBusCurrent WRITE setDCBusCurrent NOTIFY DCBusCurrentChanged)
+    Q_PROPERTY(qreal DCBusVoltage READ DCBusVoltage WRITE setDCBusVoltage NOTIFY DCBusVoltageChanged)
+    Q_PROPERTY(qreal OutputVoltage READ OutputVoltage WRITE setOutputVoltage NOTIFY OutputVoltageChanged)
+    Q_PROPERTY(qreal VABvdVoltage READ VABvdVoltage WRITE setVABvdVoltage NOTIFY VABvdVoltageChanged)
+    Q_PROPERTY(qreal VBCvqVoltage READ VBCvqVoltage WRITE setVBCvqVoltage NOTIFY VBCvqVoltageChanged)
+
+    Q_PROPERTY(qreal TirepresLF READ TirepresLF WRITE setTirepresLF NOTIFY TirepresLFChanged)
+    Q_PROPERTY(qreal TirepresRF READ TirepresRF WRITE setTirepresRF NOTIFY TirepresRFChanged)
+    Q_PROPERTY(qreal TirepresLR READ TirepresLR WRITE setTirepresLR NOTIFY TirepresLRChanged)
+    Q_PROPERTY(qreal TirepresRR READ TirepresRR WRITE setTirepresRR NOTIFY TirepresRRChanged)
+
+    Q_PROPERTY(qreal TiretempLF READ TiretempLF WRITE setTiretempLF NOTIFY TiretempLFChanged)
+    Q_PROPERTY(qreal TiretempRF READ TiretempRF WRITE setTiretempRF NOTIFY TiretempRFChanged)
+    Q_PROPERTY(qreal TiretempLR READ TiretempLR WRITE setTiretempLR NOTIFY TiretempLRChanged)
+    Q_PROPERTY(qreal TiretempRR READ TiretempRR WRITE setTiretempRR NOTIFY TiretempRRChanged)
+
+    Q_PROPERTY(qreal DigitalInput1 READ DigitalInput1 WRITE setDigitalInput1 NOTIFY DigitalInput1Changed)
+    Q_PROPERTY(qreal DigitalInput2 READ DigitalInput2 WRITE setDigitalInput2 NOTIFY DigitalInput2Changed)
+    Q_PROPERTY(qreal DigitalInput3 READ DigitalInput3 WRITE setDigitalInput3 NOTIFY DigitalInput3Changed)
+    Q_PROPERTY(qreal DigitalInput4 READ DigitalInput4 WRITE setDigitalInput4 NOTIFY DigitalInput4Changed)
+    Q_PROPERTY(qreal DigitalInput5 READ DigitalInput5 WRITE setDigitalInput5 NOTIFY DigitalInput5Changed)
+    Q_PROPERTY(qreal DigitalInput6 READ DigitalInput6 WRITE setDigitalInput6 NOTIFY DigitalInput6Changed)
+    Q_PROPERTY(qreal DigitalInput7 READ DigitalInput7 WRITE setDigitalInput7 NOTIFY DigitalInput7Changed)
 
     //Q_PROPERTY(qreal supportedReg READ supportedReg WRITE setsupportedReg NOTIFY supportedRegChanged)
     public:
@@ -425,6 +495,7 @@ class DashBoard : public QObject
     void setIgn(const qreal &Ign);
     void setDwell(const qreal &Dwell);
     void setBoostPres(const qreal &BoostPres);
+    void setBoostPreskpa(const qreal &BoostPreskpa);
     void setBoostDuty(const qreal &BoostDuty);
     void setMAFactivity(const qreal &MAFactivity);
     void setO2volt_2(const qreal &O2volt_2);
@@ -577,6 +648,7 @@ class DashBoard : public QObject
 
     // calculations
     void setGear(const qreal &Gear);
+    void setGearCalculation(const qreal &GearCalculation);
     void setPower(const qreal &Power);
     void setTorque(const qreal &Torque);
     void setAccelTimer(const qreal &AccelTimer);
@@ -764,8 +836,73 @@ class DashBoard : public QObject
     void setoilpressurelamp(const int &oilpressurelamp);
     void setovertempalarm(const int &overtempalarm);
     void setalternatorfail(const int &alternatorfail);
+    void setAuxTemp1(const int &AuxTemp1);
 
+    void setsixtyfoottime(const qreal &sixtyfoottime);
+    void setsixtyfootspeed(const qreal &sixtyfootspeed);
+    void setthreehundredthirtyfoottime(const qreal &threehundredthirtyfoottime);
+    void setthreehundredthirtyfootspeed(const qreal &threehundredthirtyfootspeed);
+    void seteightmiletime(const qreal &eightmiletime);
+    void seteightmilespeed(const qreal &eightmilespeed);
+    void setquartermiletime(const qreal &quartermiletime);
+    void setquartermilespeed(const qreal &quartermilespeed);
+    void setthousandfoottime(const qreal &thousandfoottime);
+    void setthousandfootspeed(const qreal &thousandfootspeed);
+    void setzerotohundredt(const qreal &zerotohundredt);
+    void sethundredtotwohundredtime(const qreal &hundredtotwohundredtime);
+    void settwohundredtothreehundredtime(const qreal &twohundredtothreehundredtime);
+    void setreactiontime(const qreal &reactiontime);
 
+    void setIGBTPhaseATemp(const qreal &IGBTPhaseATemp);
+    void setIGBTPhaseBTemp(const qreal &IGBTPhaseBTemp);
+    void setIGBTPhaseCTemp(const qreal &IGBTPhaseCTemp);
+    void setGateDriverTemp(const qreal &GateDriverTemp);
+    void setControlBoardTemp(const qreal &ControlBoardTemp);
+    void setRtdTemp1(const qreal &RtdTemp1);
+    void setRtdTemp2(const qreal &RtdTemp2);
+    void setRtdTemp3(const qreal &RtdTemp3);
+    void setRtdTemp4(const qreal &RtdTemp4);
+    void setRtdTemp5(const qreal &RtdTemp5);
+    void setEMotorTemperature(const qreal &EMotorTemperature);
+    void setTorqueShudder(const qreal &TorqueShudder);
+    void setDigInput1FowardSw(const qreal &DigInput1FowardSw);
+    void setDigInput2ReverseSw(const qreal &DigInput2ReverseSw);
+    void setDigInput3BrakeSw(const qreal &DigInput3BrakeSw);
+    void setDigInput4RegenDisableSw(const qreal &DigInput4RegenDisableSw);
+    void setDigInput5IgnSw(const qreal &DigInput5IgnSw);
+    void setDigInput6StartSw(const qreal &DigInput6StartSw);
+    void setDigInput7Bool(const qreal &DigInput7Bool);
+    void setDigInput8Bool(const qreal &DigInput8Bool);
+    void setEMotorAngle(const qreal &EMotorAngle);
+    void setEMotorSpeed(const qreal &EMotorSpeed);
+    void setElectricalOutFreq(const qreal &ElectricalOutFreq);
+    void setDeltaResolverFiltered(const qreal &DeltaResolverFiltered);
+    void setPhaseACurrent(const qreal &PhaseACurrent);
+    void setPhaseBCurrent(const qreal &PhaseBCurrent);
+    void setPhaseCCurrent(const qreal &PhaseCCurrent);
+    void setDCBusCurrent(const qreal &DCBusCurrent);
+    void setDCBusVoltage(const qreal &DCBusVoltage);
+    void setOutputVoltage(const qreal &OutputVoltage);
+    void setVABvdVoltage(const qreal &VABvdVoltage);
+    void setVBCvqVoltage(const qreal &VBCvqVoltage);
+
+    void setTirepresLF(const qreal &TirepresLF);
+    void setTirepresRF(const qreal &TirepresRF);
+    void setTirepresRR(const qreal &TirepresRR);
+    void setTirepresLR(const qreal &TirepresLR);
+
+    void setTiretempLF(const qreal &TiretempLF);
+    void setTiretempRF(const qreal &TiretempRF);
+    void setTiretempRR(const qreal &TiretempRR);
+    void setTiretempLR(const qreal &TiretempLR);
+
+    void setDigitalInput1(const qreal &DigitalInput1);
+    void setDigitalInput2(const qreal &DigitalInput2);
+    void setDigitalInput3(const qreal &DigitalInput3);
+    void setDigitalInput4(const qreal &DigitalInput4);
+    void setDigitalInput5(const qreal &DigitalInput5);
+    void setDigitalInput6(const qreal &DigitalInput6);
+    void setDigitalInput7(const qreal &DigitalInput7);
 
     qreal Odo() const;
 
@@ -807,6 +944,7 @@ class DashBoard : public QObject
     qreal Ign() const;
     qreal Dwell() const;
     qreal BoostPres() const;
+    qreal BoostPreskpa() const;
     qreal BoostDuty() const;
     qreal MAFactivity() const;
     qreal O2volt_2() const;
@@ -955,6 +1093,7 @@ class DashBoard : public QObject
 
     //calculations
     qreal Gear() const;
+    qreal GearCalculation() const;
     qreal Power() const;
     qreal Torque() const;
     qreal AccelTimer() const;
@@ -1141,6 +1280,76 @@ class DashBoard : public QObject
     int oilpressurelamp()const;
     int overtempalarm()const;
     int alternatorfail()const;
+    int AuxTemp1()const;
+
+    qreal sixtyfoottime()const;
+    qreal sixtyfootspeed()const;
+    qreal threehundredthirtyfoottime()const;
+    qreal threehundredthirtyfootspeed()const;
+    qreal eightmiletime()const;
+    qreal eightmilespeed()const;
+    qreal quartermiletime()const;
+    qreal quartermilespeed()const;
+    qreal thousandfoottime()const;
+    qreal thousandfootspeed()const;
+    qreal zerotohundredt()const;
+    qreal hundredtotwohundredtime()const;
+    qreal twohundredtothreehundredtime()const;
+    qreal reactiontime()const;
+
+
+    qreal IGBTPhaseATemp()const;
+    qreal IGBTPhaseBTemp()const;
+    qreal IGBTPhaseCTemp()const;
+    qreal GateDriverTemp()const;
+    qreal ControlBoardTemp()const;
+    qreal RtdTemp1()const;
+    qreal RtdTemp2()const;
+    qreal RtdTemp3()const;
+    qreal RtdTemp4()const;
+    qreal RtdTemp5()const;
+    qreal EMotorTemperature()const;
+    qreal TorqueShudder()const;
+    qreal DigInput1FowardSw()const;
+    qreal DigInput2ReverseSw()const;
+    qreal DigInput3BrakeSw()const;
+    qreal DigInput4RegenDisableSw()const;
+    qreal DigInput5IgnSw()const;
+    qreal DigInput6StartSw()const;
+    qreal DigInput7Bool()const;
+    qreal DigInput8Bool()const;
+    qreal EMotorAngle()const;
+    qreal EMotorSpeed()const;
+    qreal ElectricalOutFreq()const;
+    qreal DeltaResolverFiltered()const;
+    qreal PhaseACurrent()const;
+    qreal PhaseBCurrent()const;
+    qreal PhaseCCurrent()const;
+    qreal DCBusCurrent()const;
+    qreal DCBusVoltage()const;
+    qreal OutputVoltage()const;
+    qreal VABvdVoltage()const;
+    qreal VBCvqVoltage()const;
+
+    qreal TirepresLF()const;
+    qreal TirepresRF()const;
+    qreal TirepresRR()const;
+    qreal TirepresLR()const;
+
+    qreal TiretempLF()const;
+    qreal TiretempRF()const;
+    qreal TiretempRR()const;
+    qreal TiretempLR()const;
+
+    qreal DigitalInput1()const;
+    qreal DigitalInput2()const;
+    qreal DigitalInput3()const;
+    qreal DigitalInput4()const;
+    qreal DigitalInput5()const;
+    qreal DigitalInput6()const;
+    qreal DigitalInput7()const;
+
+
 
 
 signals:
@@ -1182,7 +1391,9 @@ signals:
     void injChanged(qreal Inj);
     void ignChanged(qreal Ign);
     void dwellChanged(qreal Dwell);
-    void boostPresChanged(qreal BoostPres);
+    void BoostPresChanged(qreal BoostPres);
+    void BoostPreskpaChanged(qreal BoostPreskpa);
+
     void boostDutyChanged(qreal BoostDuty);
     void mAFactivityChanged(qreal MAFactivity);
     void o2volt_2Changed(qreal O2volt_2);
@@ -1326,7 +1537,8 @@ signals:
     void ambipressChanged(qreal ambipress);
 
     // calculations
-    void gearChanged(qreal Gear);
+    void GearChanged(qreal Gear);
+    void GearCalculationChanged(qreal GearCalculation);
     void powerChanged(qreal Power);
     void torqueChanged(qreal Torque);
     void accelTimerChanged(qreal AccelTimer);
@@ -1506,6 +1718,74 @@ signals:
     void oilpressurelampChanged(int oilpressurelamp);
     void overtempalarmChanged(int overtempalarm);
     void alternatorfailChanged(int alternatorfail);
+    void AuxTemp1Changed(int AuxTemp1);
+
+    void sixtyfoottimeChanged(qreal sixtyfoottime);
+    void sixtyfootspeedChanged(qreal sixtyfootspeed);
+    void threehundredthirtyfoottimeChanged(qreal threehundredthirtyfoottime);
+    void threehundredthirtyfootspeedChanged(qreal threehundredthirtyfootspeed);
+    void eightmiletimeChanged(qreal eightmiletime);
+    void eightmilespeedChanged(qreal eightmilespeed);
+    void quartermiletimeChanged(qreal quartermiletime);
+    void quartermilespeedChanged(qreal quartermilespeed);
+    void thousandfoottimeChanged(qreal thousandfoottime);
+    void thousandfootspeedChanged(qreal thousandfootspeed);
+    void zerotohundredtChanged(qreal zerotohundredt);
+    void hundredtotwohundredtimeChanged(qreal hundredtotwohundredtime);
+    void twohundredtothreehundredtimeChanged(qreal twohundredtothreehundredtime);
+    void reactiontimeChanged(qreal reactiontime);
+
+    void IGBTPhaseATempChanged(qreal IGBTPhaseATemp);
+    void IGBTPhaseBTempChanged(qreal IGBTPhaseBTemp);
+    void IGBTPhaseCTempChanged(qreal IGBTPhaseCTemp);
+    void GateDriverTempChanged(qreal GateDriverTemp);
+    void ControlBoardTempChanged(qreal ControlBoardTemp);
+    void RtdTemp1Changed(qreal RtdTemp1);
+    void RtdTemp2Changed(qreal RtdTemp2);
+    void RtdTemp3Changed(qreal RtdTemp3);
+    void RtdTemp4Changed(qreal RtdTemp4);
+    void RtdTemp5Changed(qreal RtdTemp5);
+    void EMotorTemperatureChanged(qreal EMotorTemperature);
+    void TorqueShudderChanged(qreal TorqueShudder);
+    void DigInput1FowardSwChanged(qreal DigInput1FowardSw);
+    void DigInput2ReverseSwChanged(qreal DigInput2ReverseSw);
+    void DigInput3BrakeSwChanged(qreal DigInput3BrakeSw);
+    void DigInput4RegenDisableSwChanged(qreal DigInput4RegenDisableSw);
+    void DigInput5IgnSwChanged(qreal DigInput5IgnSw);
+    void DigInput6StartSwChanged(qreal DigInput6StartSw);
+    void DigInput7BoolChanged(qreal DigInput7Bool);
+    void DigInput8BoolChanged(qreal DigInput8Bool);
+    void EMotorAngleChanged(qreal EMotorAngle);
+    void EMotorSpeedChanged(qreal EMotorSpeed);
+    void ElectricalOutFreqChanged(qreal ElectricalOutFreq);
+    void DeltaResolverFilteredChanged(qreal DeltaResolverFiltered);
+    void PhaseACurrentChanged(qreal PhaseACurrent);
+    void PhaseBCurrentChanged(qreal PhaseBCurrent);
+    void PhaseCCurrentChanged(qreal PhaseCCurrent);
+    void DCBusCurrentChanged(qreal DCBusCurrent);
+    void DCBusVoltageChanged(qreal DCBusVoltage);
+    void OutputVoltageChanged(qreal OutputVoltage);
+    void VABvdVoltageChanged(qreal VABvdVoltage);
+    void VBCvqVoltageChanged(qreal VBCvqVoltage);
+
+    void TirepresLFChanged(qreal TirepresLF);
+    void TirepresRFChanged(qreal TirepresRF);
+    void TirepresRRChanged(qreal TirepresRR);
+    void TirepresLRChanged(qreal TirepresLR);
+
+    void TiretempLFChanged(qreal TiretempLF);
+    void TiretempRFChanged(qreal TiretempRF);
+    void TiretempRRChanged(qreal TiretempRR);
+    void TiretempLRChanged(qreal TiretempLR);
+
+    void DigitalInput1Changed(qreal DigitalInput1);
+    void DigitalInput2Changed(qreal DigitalInput2);
+    void DigitalInput3Changed(qreal DigitalInput3);
+    void DigitalInput4Changed(qreal DigitalInput4);
+    void DigitalInput5Changed(qreal DigitalInput5);
+    void DigitalInput6Changed(qreal DigitalInput6);
+    void DigitalInput7Changed(qreal DigitalInput7);
+
 
 private:
     // Odometer
@@ -1550,6 +1830,7 @@ private:
     qreal m_Ign;
     qreal m_Dwell;
     qreal m_BoostPres;
+    qreal m_BoostPreskpa;
     qreal m_BoostDuty;
     qreal m_MAFactivity;
     qreal m_O2volt_2;
@@ -1702,6 +1983,7 @@ private:
     //calculations
 
     qreal m_Gear;
+    qreal m_GearCalculation;
     qreal m_Power;
     qreal m_Torque;
     qreal m_AccelTimer;
@@ -1884,7 +2166,74 @@ private:
     int m_oilpressurelamp;
     int m_overtempalarm;
     int m_alternatorfail;
+    int m_AuxTemp1;
 
+
+    qreal m_sixtyfoottime;
+    qreal m_sixtyfootspeed;
+    qreal m_threehundredthirtyfoottime;
+    qreal m_threehundredthirtyfootspeed;
+    qreal m_eightmiletime;
+    qreal m_eightmilespeed;
+    qreal m_quartermiletime;
+    qreal m_quartermilespeed;
+    qreal m_thousandfoottime;
+    qreal m_thousandfootspeed;
+    qreal m_zerotohundredt;
+    qreal m_hundredtotwohundredtime;
+    qreal m_twohundredtothreehundredtime;
+    qreal m_reactiontime;
+
+    qreal m_IGBTPhaseATemp;
+    qreal m_IGBTPhaseBTemp;
+    qreal m_IGBTPhaseCTemp;
+    qreal m_GateDriverTemp;
+    qreal m_ControlBoardTemp;
+    qreal m_RtdTemp1;
+    qreal m_RtdTemp2;
+    qreal m_RtdTemp3;
+    qreal m_RtdTemp4;
+    qreal m_RtdTemp5;
+    qreal m_EMotorTemperature;
+    qreal m_TorqueShudder;
+    qreal m_DigInput1FowardSw;
+    qreal m_DigInput2ReverseSw;
+    qreal m_DigInput3BrakeSw;
+    qreal m_DigInput4RegenDisableSw;
+    qreal m_DigInput5IgnSw;
+    qreal m_DigInput6StartSw;
+    qreal m_DigInput7Bool;
+    qreal m_DigInput8Bool;
+    qreal m_EMotorAngle;
+    qreal m_EMotorSpeed;
+    qreal m_ElectricalOutFreq;
+    qreal m_DeltaResolverFiltered;
+    qreal m_PhaseACurrent;
+    qreal m_PhaseBCurrent;
+    qreal m_PhaseCCurrent;
+    qreal m_DCBusCurrent;
+    qreal m_DCBusVoltage;
+    qreal m_OutputVoltage;
+    qreal m_VABvdVoltage;
+    qreal m_VBCvqVoltage;
+
+    qreal m_TirepresLF;
+    qreal m_TirepresRF;
+    qreal m_TirepresRR;
+    qreal m_TirepresLR;
+
+    qreal m_TiretempLF;
+    qreal m_TiretempRF;
+    qreal m_TiretempRR;
+    qreal m_TiretempLR;
+
+    qreal m_DigitalInput1;
+    qreal m_DigitalInput2;
+    qreal m_DigitalInput3;
+    qreal m_DigitalInput4;
+    qreal m_DigitalInput5;
+    qreal m_DigitalInput6;
+    qreal m_DigitalInput7;
 
 };
 

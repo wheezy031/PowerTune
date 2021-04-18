@@ -7,12 +7,17 @@ import QtSensors 5.0
 import QtQuick.Controls.Styles 1.4
 import QtMultimedia 5.8
 import "qrc:/Gauges/"
+import DLM 1.0
 
 Quick1.TabView {
     id: tabView
     anchors.fill: parent
 
     property int lastdashamount
+    DLM
+    {
+        id:downloadManager
+    }
 
     Rectangle{
         id: keyboardcontainer
@@ -574,7 +579,7 @@ Quick1.TabView {
                             onCheckedChanged: {transferSettings.sendSettings(),goproRec.rec()}
                             Component.onCompleted: tabView.currentIndex = 1; // opens the 2nd tab
                         }
-                        Text  { text: "V 1.93" + Dashboard.Platform ;color: "white";font.pixelSize: windowbackround.width / 55} //spacer
+                        Text  { text: " V 1.95 " + Dashboard.Platform ;color: "white";font.pixelSize: windowbackround.width / 55} //spacer
 /*
                         Slider {
                             id:brightness
@@ -780,6 +785,7 @@ Quick1.TabView {
                     if (warnsound.playing == false) warnsound.play();
                 }
             }
+
         }
     }
     Quick1.Tab {
@@ -864,7 +870,7 @@ Quick1.TabView {
                         width: dashselector.width / 5
                         height: dashselector.height /15
                         font.pixelSize: dashselector.width / 55
-                        model: ["Main Dash","GPS", "Laptimer", "PowerFC Sensors","User Dash 1","User Dash 2","User Dash 3","G-Force","Dyno","Mediaplayer","Screen Toggle"]
+                        model: ["Main Dash","GPS", "Laptimer", "PowerFC Sensors","User Dash 1","User Dash 2","User Dash 3","G-Force","Dyno","Mediaplayer","Screen Toggle","Drag Timer Beta"]
                         //currentIndex: 1
                         onCurrentIndexChanged:{select1.selDash1() }
                         //Component.onCompleted: {select1.selDash1() }
@@ -895,7 +901,7 @@ Quick1.TabView {
                         width: dashselector.width / 5
                         height: dashselector.height /15
                         font.pixelSize: dashselector.width / 55
-                        model: ["Main Dash","GPS", "Laptimer", "PowerFC Sensors","User Dash 1","User Dash 2","User Dash 3","G-Force","Dyno","Mediaplayer","Screen Toggle"]
+                        model: ["Main Dash","GPS", "Laptimer", "PowerFC Sensors","User Dash 1","User Dash 2","User Dash 3","G-Force","Dyno","Mediaplayer","Screen Toggle","Drag Timer Beta"]
                         //currentIndex: 1
                         //onCurrentIndexChanged:{select2.selDash2() }
                         visible: Dashboard.Visibledashes >1
@@ -927,7 +933,7 @@ Quick1.TabView {
                         width: dashselector.width / 5
                         height: dashselector.height /15
                         font.pixelSize: dashselector.width / 55
-                        model: ["Main Dash","GPS", "Laptimer", "PowerFC Sensors","User Dash 1","User Dash 2","User Dash 3","G-Force","Dyno","Mediaplayer","Screen Toggle"]
+                        model: ["Main Dash","GPS", "Laptimer", "PowerFC Sensors","User Dash 1","User Dash 2","User Dash 3","G-Force","Dyno","Mediaplayer","Screen Toggle","Drag Timer Beta"]
                         visible: Dashboard.Visibledashes >2
                         onCurrentIndexChanged:{if (dash3.visible == true){select3.selDash3()} }
                         onVisibleChanged: {if (dash3.visible == true){select3.selDash3()} }
@@ -958,7 +964,7 @@ Quick1.TabView {
                         width: dashselector.width / 5
                         height: dashselector.height /15
                         font.pixelSize: dashselector.width / 55
-                        model: ["Main Dash","GPS", "Laptimer", "PowerFC Sensors","User Dash 1","User Dash 2","User Dash 3","G-Force","Dyno","Mediaplayer","Screen Toggle"]
+                        model: ["Main Dash","GPS", "Laptimer", "PowerFC Sensors","User Dash 1","User Dash 2","User Dash 3","G-Force","Dyno","Mediaplayer","Screen Toggle","Drag Timer Beta"]
                         visible: Dashboard.Visibledashes >3
                         onCurrentIndexChanged:{if (dash4.visible == true){select4.selDash4()} }
                         onVisibleChanged: {if (dash4.visible == true){select4.selDash4()} }
@@ -1033,8 +1039,8 @@ Quick1.TabView {
                         if (dash1.currentIndex == "8") {firstPageLoader.source = "qrc:/Gauges/Dyno.qml"};
                         if (dash1.currentIndex == "9"){firstPageLoader.source = "qrc:/Gauges/Mediaplayer.qml"};
                         if (dash1.currentIndex == "10"){firstPageLoader.source = "qrc:/Gauges/Screentoggle.qml"};
-                        //if (dash1.currentIndex == "11"){view.addItem(firstPageLoader)};
-                        console.log("selecting DASH 1")
+                        if (dash1.currentIndex == "11") {firstPageLoader.source = "qrc:/Gauges/SpeedMeasurements.qml"};
+
                     }
                 }
                 Item {
@@ -1053,8 +1059,9 @@ Quick1.TabView {
                         if (dash2.currentIndex == "8") {secondPageLoader.source = "qrc:/Gauges/Dyno.qml"};
                         if (dash2.currentIndex == "9"){secondPageLoader.source = "qrc:/Gauges/Mediaplayer.qml"};
                         if (dash2.currentIndex == "10"){secondPageLoader.source = "qrc:/Gauges/Screentoggle.qml"};
-                        //if (dash2.currentIndex == "11"){view.takeItem(1)};
-                        console.log("selecting DASH 2")
+                        if (dash2.currentIndex == "11") {secondPageLoader.source = "qrc:/Gauges/SpeedMeasurements.qml"};
+
+
                     }
                 }
                 Item {
@@ -1072,7 +1079,9 @@ Quick1.TabView {
                         if (dash3.currentIndex == "8") {thirdPageLoader.source = "qrc:/Gauges/Dyno.qml"};
                         if (dash3.currentIndex == "9"){thirdPageLoader.source = "qrc:/Gauges/Mediaplayer.qml"};
                         if (dash3.currentIndex == "10"){thirdPageLoader.source = "qrc:/Gauges/Screentoggle.qml"};
-                        console.log("selecting DASH 3")
+                        if (dash3.currentIndex == "11") {thirdPageLoader.source = "qrc:/Gauges/SpeedMeasurements.qml"};
+
+
                     }
                 }
                 Item {
@@ -1090,7 +1099,8 @@ Quick1.TabView {
                         if (dash4.currentIndex == "8") {fourthPageLoader.source = "qrc:/Gauges/Dyno.qml"};
                         if (dash4.currentIndex == "9") {fourthPageLoader.source = "qrc:/Gauges/Mediaplayer.qml"};
                         if (dash4.currentIndex == "10") {fourthPageLoader.source = "qrc:/Gauges/Screentoggle.qml"};
-                        console.log("selecting DASH 4")
+                        if (dash4.currentIndex == "11") {fourthPageLoader.source = "qrc:/Gauges/SpeedMeasurements.qml"};
+
                     }
                     Component.onCompleted: tabView.currentIndex = 2 // opens the 3rd tab
                 }
@@ -1592,7 +1602,7 @@ Quick1.TabView {
                     width: daemons.width / 3
                     height: daemons.height /15
                     font.pixelSize: daemons.width / 55
-                    model: [ "None","HaltechV2","Link Generic Dash","Microtech","Consult","M800 Set1","OBD2","Hondata","Adaptronic CAN","Motec M1","AEM V2","AUDI B7","BRZ FRS 86","ECU Masters","Audi B8","Emtron","Holley","MaxxECU","Barra FG MK1","Barra FG MK1 + OBD Polling","Barra BX ","Barra BX + OBD Polling","Barra FG2x","Barra FG2x + OBD Polling","EVO X Test","Blackbox M3","NISSAN 370Z Test","GM CANBUS Test"]
+                    model: [ "None","HaltechV2","Link Generic Dash","Microtech","Consult","M800 Set1","OBD2","Hondata","Adaptronic CAN","Motec M1","AEM V2","AUDI B7","BRZ FRS 86","ECU Masters","Audi B8","Emtron","Holley","MaxxECU","Barra FG MK1","Barra FG MK1 + OBD Polling","Barra BX ","Barra BX + OBD Polling","Barra FG2x","Barra FG2x + OBD Polling","EVO X Test","Blackbox M3","NISSAN 370Z Test","GM: LS2-LS7 CAN","NISSAN 350Z Test","Test Megasquirt CAN Simplified","Test EMTECH EMS CAN","Subaru Test","Motec Set3 ADL","Testdaemon","Ecoboost","Emerald ECU"]
                     delegate: ItemDelegate {
                         width: daemonselect.width
                         text: daemonselect.textRole ? (Array.isArray(control.model) ? modelData[control.textRole] : model[control.textRole]) : modelData
@@ -1602,16 +1612,17 @@ Quick1.TabView {
                         highlighted: daemonselect.highlightedIndex == index
                         hoverEnabled: daemonselect.hoverEnabled
                     }
+                    onCurrentIndexChanged: autochangecanspeed.start();
                     //Component.onCompleted: tabView.currentIndex = 0;
                 }
                 Text { text: "CAN Bitrate :"
                     font.pixelSize: daemons.width / 55 }
                 ComboBox {
                     id: canbitrateselect
-                    width: daemons.width / 3
+                     width: daemons.width / 3
                     height: daemons.height /15
                     font.pixelSize: daemons.width / 55
-                    model: [ "500 kbit/s","1 Mbit/s"]
+                    model: [ "250 kbit/s","500 kbit/s","1 Mbit/s"]
                     delegate: ItemDelegate {
                         width: canbitrateselect.width
                         text: canbitrateselect.textRole ? (Array.isArray(control.model) ? modelData[control.textRole] : model[control.textRole]) : modelData
@@ -1622,6 +1633,64 @@ Quick1.TabView {
                         hoverEnabled: canbitrateselect.hoverEnabled
                     }
                     //Component.onCompleted: tabView.currentIndex = 0;
+                }
+                Item {
+                    //Function to automatically change can speeds
+                    id: autochangecanspeed
+                    function start()
+                    {
+                        //if (daemonselect.textAt(daemonselect.currentIndex) == "OBD2"|| daemonselect.textAt(daemonselect.currentIndex) == "AUDI B7"|| daemonselect.textAt(daemonselect.currentIndex) == "BRZ FRS 86"|| daemonselect.textAt(daemonselect.currentIndex) =="Audi B8"|| daemonselect.textAt(daemonselect.currentIndex) == "Barra FG MK1"|| daemonselect.textAt(daemonselect.currentIndex) =="Barra FG MK1 + OBD Polling"||daemonselect.textAt(daemonselect.currentIndex) =="Barra BX "||daemonselect.textAt(daemonselect.currentIndex) =="Barra BX + OBD Polling"||daemonselect.textAt(daemonselect.currentIndex) =="Barra FG2x" || daemonselect.textAt(daemonselect.currentIndex) =="Barra FG2x + OBD Polling"||daemonselect.textAt(daemonselect.currentIndex)== "EVO X Test"||"NISSAN 370Z Test"||daemonselect.textAt(daemonselect.currentIndex) =="GM: LS2-LS7 CAN"||daemonselect.textAt(daemonselect.currentIndex) == "NISSAN 350Z Test")
+                        //if (daemonselect.textAt(daemonselect.currentIndex) == "OBD2")
+                        switch(daemonselect.textAt(daemonselect.currentIndex))
+                        {
+                        case "OBD2":
+                            canbitrateselect.currentIndex = 1 // 500 Kbs
+                            break;
+                        case "AUDI B7":
+                            canbitrateselect.currentIndex = 1 // 500 Kbs
+                            break;
+                        case "BRZ FRS 86":
+                            canbitrateselect.currentIndex = 1 // 500 Kbs
+                            break;
+                        case "Audi B8":
+                            canbitrateselect.currentIndex = 1 // 500 Kbs
+                            break;
+                        case "Barra FG MK1":
+                            canbitrateselect.currentIndex = 1 // 500 Kbs
+                            break;
+                        case "Barra FG MK1 + OBD Polling":
+                            canbitrateselect.currentIndex = 1 // 500 Kbs
+                            break;
+                        case "Barra BX ":
+                            canbitrateselect.currentIndex = 1 // 500 Kbs
+                            break;
+                        case "Barra BX + OBD Polling":
+                            canbitrateselect.currentIndex = 1 // 500 Kbs
+                            break;
+                        case "Barra FG2x":
+                            canbitrateselect.currentIndex = 1 // 500 Kbs
+                            break;
+                        case "Barra FG2x + OBD Polling":
+                            canbitrateselect.currentIndex = 1 // 500 Kbs
+                            break;
+                        case "EVO X Test":
+                            canbitrateselect.currentIndex = 1 // 500 Kbs
+                            break;
+                        case "NISSAN 370Z Test":
+                            canbitrateselect.currentIndex = 1 // 500 Kbs
+                            break;
+                        case "GM: LS2-LS7 CAN":
+                            canbitrateselect.currentIndex = 1 // 500 Kbs
+                            break;
+                        case "NISSAN 350Z Test":canbitrateselect.currentIndex = 1 // 500 Kbs
+                            break;
+                        case "Subaru Test":canbitrateselect.currentIndex = 1 // 500 Kbs
+                            break;
+                        default:
+                        canbitrateselect.currentIndex = 2 // 1Mbit
+                        break;
+                        }
+                    }
                 }
                 Text { text: "Main Speed Source :"
                     font.pixelSize: daemons.width / 55 }
@@ -1710,7 +1779,7 @@ Quick1.TabView {
                 anchors.top :parent.top
                 anchors.topMargin: parent.height / 20
                 anchors.right: parent.right
-                rows: 10
+                rows: 12
                 columns: 2
                 spacing: parent.width /150
 
@@ -1731,7 +1800,7 @@ Quick1.TabView {
                                 //btnScanNetwork.enabled =false;
                         }
                 }
-                Text { text: "Wifi Country :"
+                Text { text: "WIFI Country :"
                     font.pixelSize: extrarect.width / 55 }
                 ComboBox {
                     id: wificountrycbx
@@ -1810,7 +1879,7 @@ Quick1.TabView {
 
                 Button {
                     id: applyWifiSettings
-                    text: "Apply Settings"
+                    text: "Connect WIFI"
                     width: extrarect.width / 5
                     height: extrarect.height /15
                     font.pixelSize: extrarect.width / 55
@@ -1852,15 +1921,61 @@ Quick1.TabView {
                     font.pixelSize: extrarect.width / 55
 
                     onClicked: {
+
                     //Arduino.openConnection("COM11");
                     Connect.restartDaemon();
                     //develtest.enabled = false;
                     }
                 }
-
                 Text { text: " "
                     font.pixelSize: extrarect.width / 55 }
+                Button {
+                    id: trackUpdate
+                    text: "Update Tracks"
+                    width: extrarect.width / 5
+                    height: extrarect.height /15
+                    font.pixelSize: extrarect.width / 55
+                    onClicked: {
+                    downloadManager.append(""); // needed as a workarround
+                    downloadManager.append("https://gitlab.com/PowerTuneDigital/PowertuneTracks/-/raw/main/repo.txt");
+                    downloadManager.append(""); // needed as a workarround
+                    consoleText.append("Downloading Tracks for Laptimer :");
+                    trackUpdate.enabled = false;
+                    downloadprogress.indeterminate = true;
+                    }
+                }
+                Text { text: " "
+                    font.pixelSize: extrarect.width / 55 }
+                Quick1.ProgressBar {
+                    id: downloadprogress
+                    width: extrarect.width / 5
+                    height: extrarect.height /15
 
+                }
+                Text { text: " "
+                    font.pixelSize: extrarect.width / 55 }
+                Text {
+                    id: downloadspeedtext
+                    text: downloadManager.downloadStatus
+                    font.pixelSize: extrarect.width / 55
+                    onTextChanged: {
+                        if(downloadspeedtext.text == "Finished")
+                        {
+                            //trackUpdate.enabled = true;
+                            downloadprogress.indeterminate = false;
+                            downloadspeedtext.text = " ";
+                            Connect.changefolderpermission();
+
+                        }
+                    }
+                    }
+                Text {
+                    id: downloadfilenametext
+                    text: downloadManager.downloadFilename
+                    font.pixelSize: extrarect.width / 55
+                    visible: false
+                    onTextChanged: consoleText.append(downloadManager.downloadFilename);
+                    }
 /*
                 Button {
                     id: develtest1
@@ -1874,5 +1989,5 @@ Quick1.TabView {
             }
         }
     }
-///////////////////////////////////////////////////////////////////////////////////////////
+
 }

@@ -1,4 +1,7 @@
 #!/bin/sh
+echo "Disable System Logs"
+cd /home/pi/src
+./fixlog.sh
 echo "Fetching latest Daemons"
 cd /home/pi/src
 git pull
@@ -21,16 +24,25 @@ sudo pkill FordBarraFG2xCAN
 sudo pkill FordBarraFG2XCANOBD
 sudo pkill FordBarraFGMK1CAN
 sudo pkill FordBarraFGMK1CANOBD
+sudo pkill GMCANd
 sudo pkill Haltechd
 sudo pkill Holleyd
 sudo pkill Hondatad
 sudo pkill Linkd
 sudo pkill M800ADLSet1d
+sudo pkill M800ADLSet3d
 sudo pkill MaxxECUd
 sudo pkill Microtechd
 sudo pkill MotecM1d
 sudo pkill NISSAN370Z
+sudo pkill NISSAN350Z
 sudo pkill OBD
+sudo pkill MegasquirtCan
+sudo pkill EMSCAN
+sudo pkill WRX2012
+sudo pkill Testdaemon
+sudo pkill ecoboost
+sudo pkill WolfEMS
 
 echo "Removing previous Versions"
 
@@ -56,12 +68,19 @@ sudo rm /home/pi/daemons/Holleyd
 sudo rm /home/pi/daemons/Hondatad
 sudo rm /home/pi/daemons/Linkd
 sudo rm /home/pi/daemons/M800ADLSet1d
+sudo rm /home/pi/daemons/M800ADLSet3d
 sudo rm /home/pi/daemons/MaxxECUd
 sudo rm /home/pi/daemons/Microtechd
 sudo rm /home/pi/daemons/MotecM1d
 sudo rm /home/pi/daemons/NISSAN370Z
+sudo rm /home/pi/daemons/NISSAN350Z
 sudo rm /home/pi/daemons/OBD
-
+sudo rm /home/pi/daemons/GMCANd
+sudo rm /home/pi/daemons/MegasquirtCan
+sudo rm /home/pi/daemons/WRX2012
+sudo rm /home/pi/daemons/Testdaemon
+sudo rm /home/pi/daemons/ecoboost
+sudo rm /home/pi/daemons/WolfEMS
 
 echo "Updating Daemons"
 cp -r /home/pi/src/daemons/. /home/pi/daemons/

@@ -4,6 +4,19 @@ ListModel {
     id: datasources
 
 ///////////
+
+
+    ListElement {
+        titlename: "Average Fuel Economy"
+        defaultsymbol: " "
+        sourcename:"avfueleconomy"
+        supportedECU: ""
+        decimalpoints : "0" // 4 means its treated as a string
+        decimalpoints2 : "0" // 4 means its treated as a string
+        maxvalue : "100"
+        stepsize : "1"
+        divisor : "1"
+    }
     ListElement {
         titlename: "Alternator Light"
         defaultsymbol: " "
@@ -12,6 +25,17 @@ ListModel {
         decimalpoints : "0" // 4 means its treated as a string
         decimalpoints2 : "0" // 4 means its treated as a string
         maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        titlename: "Aux Temp 1"
+        defaultsymbol: " "
+        sourcename:"AuxTemp1"
+        supportedECU: ""
+        decimalpoints : "0" // 4 means its treated as a string
+        decimalpoints2 : "0" // 4 means its treated as a string
+        maxvalue : "300"
         stepsize : "1"
         divisor : "1"
     }
@@ -483,6 +507,15 @@ ListModel {
         divisor : "1"
     }
     ListElement {
+        sourcename:"BoostPreskpa"
+        defaultsymbol: ""
+        titlename:"Boost kPa"
+        decimalpoints : "0"
+        maxvalue : "300"
+        stepsize : "20"
+        divisor : "1"
+    }
+    ListElement {
         sourcename:"Boosttp"
         defaultsymbol: "%"
         titlename:"Boost Tp"
@@ -565,6 +598,73 @@ ListModel {
         stepsize : "30"
         divisor : "1"
     }
+
+    ListElement {
+        sourcename:"DigitalInput1"
+        defaultsymbol: ""
+        titlename:"DigitalInput 1"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"DigitalInput2"
+        defaultsymbol: ""
+        titlename:"DigitalInput 2"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"DigitalInput3"
+        defaultsymbol: ""
+        titlename:"DigitalInput 3"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"DigitalInput4"
+        defaultsymbol: ""
+        titlename:"DigitalInput 4"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"DigitalInput5"
+        defaultsymbol: ""
+        titlename:"DigitalInput 5"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"DigitalInput6"
+        defaultsymbol: ""
+        titlename:"DigitalInput 6"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"DigitalInput7"
+        defaultsymbol: ""
+        titlename:"DigitalInput 7"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+
+
+
     ListElement {
         sourcename:"distancetoempty"
         defaultsymbol: "km"
@@ -1133,6 +1233,16 @@ ListModel {
         stepsize : "1"
         divisor : "1"
     }
+    ListElement {
+        sourcename:"GearCalculation"
+        defaultsymbol: ""
+        titlename:"Gear Caluclation"
+        decimalpoints : "0"
+        maxvalue : "6"
+        stepsize : "1"
+        divisor : "1"
+    }
+
     ListElement {
         sourcename:"gearswitch"
         defaultsymbol: ""
@@ -2111,6 +2221,367 @@ ListModel {
         stepsize : "1"
         divisor : "1"
     }
+    ListElement {
+        sourcename:"IGBTPhaseATemp"
+        defaultsymbol: ""
+        titlename:"IGBTPhaseATemp"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+
+    ListElement {
+        sourcename:"IGBTPhaseBTemp"
+        defaultsymbol: ""
+        titlename:"IGBTPhaseBTemp"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"IGBTPhaseCTemp"
+        defaultsymbol: ""
+        titlename:"IGBTPhaseCTemp"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"GateDriverTemp"
+        defaultsymbol: ""
+        titlename:"GateDriverTemp"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"ControlBoardTemp"
+        defaultsymbol: ""
+        titlename:"ControlBoardTemp"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"DigInput1FowardSw"
+        defaultsymbol: ""
+        titlename:"DigInput1FowardSw"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"RtdTemp2"
+        defaultsymbol: ""
+        titlename:"RtdTemp2"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"RtdTemp3"
+        defaultsymbol: ""
+        titlename:"RtdTemp3"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"RtdTemp4"
+        defaultsymbol: ""
+        titlename:"RtdTemp4"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"RtdTemp5"
+        defaultsymbol: ""
+        titlename:"RtdTemp5"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"EMotorTemperature"
+        defaultsymbol: ""
+        titlename:"EMotorTemperature"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"TorqueShudder"
+        defaultsymbol: ""
+        titlename:"TorqueShudder"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"DigInput2ReverseSw"
+        defaultsymbol: ""
+        titlename:"DigInput2ReverseSwDigInput2ReverseSw"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"DigInput3BrakeSw"
+        defaultsymbol: ""
+        titlename:"DigInput3BrakeSw"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+      ListElement {
+        sourcename:"DigInput4RegenDisableSw"
+        defaultsymbol: ""
+        titlename:"DigInput4RegenDisableSw"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"DigInput5IgnSw"
+        defaultsymbol: ""
+        titlename:"DigInput5IgnSw"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"DigInput6StartSw"
+        defaultsymbol: ""
+        titlename:"DigInput6StartSw"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"DigInput7Bool"
+        defaultsymbol: ""
+        titlename:"DigInput7Bool"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"DigInput8Bool"
+        defaultsymbol: ""
+        titlename:"DigInput8Bool"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"EMotorAngle"
+        defaultsymbol: ""
+        titlename:"EMotorAngle"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"ElectricalOutFreq"
+        defaultsymbol: ""
+        titlename:"ElectricalOutFreq"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"DeltaResolverFiltered"
+        defaultsymbol: ""
+        titlename:"DeltaResolverFiltered"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"PhaseACurrent"
+        defaultsymbol: ""
+        titlename:"PhaseACurrent"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"EMotorSpeed"
+        defaultsymbol: ""
+        titlename:"EMotorSpeed"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"PhaseBCurrent"
+        defaultsymbol: ""
+        titlename:"PhaseBCurrent"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"PhaseCCurrent"
+        defaultsymbol: ""
+        titlename:"PhaseCCurrent"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+
+    ListElement {
+        sourcename:"DCBusCurrent"
+        defaultsymbol: ""
+        titlename:"DCBusCurrent"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+
+    ListElement {
+        sourcename:"DCBusVoltage"
+        defaultsymbol: ""
+        titlename:"DCBusVoltage"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+
+    ListElement {
+        sourcename:"OutputVoltage"
+        defaultsymbol: ""
+        titlename:"OutputVoltage"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"VABvdVoltage"
+        defaultsymbol: ""
+        titlename:"VABvdVoltage"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+
+    ListElement {
+        sourcename:"VBCvqVoltage"
+        defaultsymbol: ""
+        titlename:"VBCvqVoltage"
+        decimalpoints : "0"
+        maxvalue : "1"
+        stepsize : "1"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"TiretempLF"
+        defaultsymbol: "°C"
+        titlename:"TiretempLF"
+        decimalpoints : "0"
+        maxvalue : "150"
+        stepsize : "10"
+        divisor : "1"
+    }
+
+    ListElement {
+        sourcename:"TiretempRF"
+        defaultsymbol: "°C"
+        titlename:"TiretempRF"
+        decimalpoints : "0"
+        maxvalue : "150"
+        stepsize : "10"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"TiretempLR"
+        defaultsymbol: "°C"
+        titlename:"TiretempLR"
+        decimalpoints : "0"
+        maxvalue : "150"
+        stepsize : "10"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"TiretempRR"
+        defaultsymbol: "°C"
+        titlename:"TiretempRR"
+        decimalpoints : "0"
+        maxvalue : "150"
+        stepsize : "10"
+        divisor : "1"
+    }
+    ListElement {
+        sourcename:"TirepresLF"
+        defaultsymbol: "kPa"
+        titlename:"TirepresLF"
+        decimalpoints : "0"
+        maxvalue : "300"
+        stepsize : "10"
+        divisor : "1"
+    }
+
+    ListElement {
+        sourcename:"TirepresRF"
+        defaultsymbol: "kPa"
+        titlename:"TirepresRF"
+        decimalpoints : "0"
+        maxvalue : "300"
+        stepsize : "10"
+        divisor : "1"
+    }
+
+    ListElement {
+        sourcename:"TirepresLR"
+        defaultsymbol: "kPa"
+        titlename:"TirepresLR"
+        decimalpoints : "0"
+        maxvalue : "300"
+        stepsize : "10"
+        divisor : "1"
+    }
+
+    ListElement {
+        sourcename:"TirepresRR"
+        defaultsymbol: "kPa"
+        titlename:"TirepresRR"
+        decimalpoints : "0"
+        maxvalue : "300"
+        stepsize : "10"
+        divisor : "1"
+    }
+
 }
 
 

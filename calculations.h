@@ -19,7 +19,11 @@ public:
     explicit calculations(DashBoard *dashboard, QObject *parent = 0);
 
 public slots:
-
+    Q_INVOKABLE void startdragtimer();
+    Q_INVOKABLE void startreactiontimer();
+    Q_INVOKABLE void qmlrealtime();
+    Q_INVOKABLE void stopreactiontimer();
+    Q_INVOKABLE void calculatereactiontime();
     void calculate();
     void start();
     void stop();
@@ -30,6 +34,8 @@ public slots:
 private:
     DashBoard *m_dashboard;
     QTimer      m_updatetimer;
+    QTimer      m_reactiontimer;
+    QTimer      m_dynotimer;
 
 };
 

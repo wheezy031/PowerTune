@@ -16,6 +16,7 @@ QByteArray fullFuelBase;
 qreal AN1AN2calc;
 qreal AN3AN4calc;
 qreal test;
+qreal kpaboost;
 int reconnect = 0;
 QString port;
 //QBitArray flagArray;
@@ -520,6 +521,8 @@ void Apexi::decodeAdv(QByteArray rawmessagedata)
     // Nissan and Subaru
     if (Model == 2)
     {
+
+
         fc_adv_info_t2* info=reinterpret_cast<fc_adv_info_t2*>(rawmessagedata.data());
         
         packageADV2[0] = info->RPM;
@@ -532,9 +535,17 @@ void Apexi::decodeAdv(QByteArray rawmessagedata)
         packageADV2[7] = info->Dwell;
         packageADV2[8] = -760 + info->BoostPres;
         if (packageADV2[8] >= 0x8000)
-            packageADV2[8] = (packageADV[8] - 0x8000) * 0.01;
+        {
+            packageADV2[8] = (packageADV[8] - 0x8000) * 0.01;  //Positive Boost kgcm2
+
+        }
         else
-            packageADV2[8] = (1.0 / 2560 + 0.001) * packageADV[8];
+        {
+
+            packageADV2[8] = (1.0 / 2560 + 0.001) * packageADV[8]; //Negative Boost in mmhg
+
+
+        }
         packageADV2[9] = info->BoostDuty *0.005;
         packageADV2[10] = info->Watertemp -80;
         packageADV2[11] = info->Intaketemp -80;
@@ -554,7 +565,8 @@ void Apexi::decodeAdv(QByteArray rawmessagedata)
         //m_dashboard->setFue(packageADV2[5]);
         m_dashboard->setIgn(packageADV2[6]);
         m_dashboard->setDwell(packageADV2[7]);
-        m_dashboard->setBoostPres(packageADV2[8]);
+        //m_dashboard->setMAP(packageADV2[8]);
+        //m_dashboard->setBoostPreskpa(kpaboost);
         m_dashboard->setBoostDuty(packageADV2[9]);
         m_dashboard->setWatertemp(packageADV2[10]);
         m_dashboard->setIntaketemp(packageADV2[11]);
@@ -733,29 +745,21 @@ void Apexi::decodeBasic(QByteArray rawmessagedata)
         {
             int test = (unsigned char)rawmessagedata[12];
             Boost = test * 0.01;
+            kpaboost = test * 0.980665;
          }
         else{
             Boost = (packageBasic[5] -760);
+            kpaboost = Boost * 0.133322;
         }
 
-/*
-    else{
-       // qDebug()<< "Mdl1" << packageBasic[5];
-        if (packageBasic[5] >= 0)
-        {
-            Boost = (packageBasic[5] -760) * 0.01;
-        }
-        else{
-            Boost = packageBasic[5] -760; // while boost pressure is negative show pressure in mmhg
-        }
-      }
-*/
+
     //m_dashboard->setInjDuty(packageBasic[0]);
     m_dashboard->setLeadingign(packageBasic[1]);
     m_dashboard->setTrailingign(packageBasic[2]);
     m_dashboard->setrpm(packageBasic[3]);
     m_dashboard->setSpeed(packageBasic[4]);
     m_dashboard->setBoostPres(Boost);
+    m_dashboard->setBoostPreskpa(kpaboost);
     m_dashboard->setKnock(packageBasic[6]);
     m_dashboard->setWatertemp(packageBasic[7]);
     m_dashboard->setIntaketemp(packageBasic[8]);
@@ -787,7 +791,7 @@ void Apexi::decodeInit(QByteArray rawmessagedata)
         Model =1;
     }   
     //Nissan
-    if (Modelname == "NISSAN-L" || Modelname == "CA18DET " || Modelname == "SR20DE1 " || Modelname == "SR20DE2 " || Modelname == "SR20DE3 " || Modelname == "SR20DE4 " || Modelname == "SR20DET1" || Modelname == "SR20DET2" || Modelname == "SR20DET3" || Modelname == "SR20DET4" || Modelname == "SR20DET5" || Modelname == "SR20DET6" || Modelname == "RB20DET " || Modelname == "RB25DET " || Modelname == "RB25DET2" || Modelname == "RB26DETT" || Modelname == "VG30DETT" || Modelname == "CA181PRO" || Modelname == "SR2N1PRO" || Modelname == "SR2N2PRO" || Modelname == "SR2N3PRO" || Modelname == "SR2N4PRO" || Modelname == "SR201PRO" || Modelname == "SR202PRO" || Modelname == "SR203PRO" || Modelname == "SR204PRO" || Modelname == "SR205PRO" || Modelname == "SR206PRO" || Modelname == "RB201PRO" || Modelname == "RB251PRO" || Modelname == "RB252PRO" || Modelname == "RB261PRO" || Modelname == "RB262PRO" || Modelname == "RB26Pro " || Modelname == "RB26PRO " || Modelname == "RB26PRO1" || Modelname == "RB25PRO2" || Modelname == "CA18T1-D" || Modelname == "SR20T1-D" || Modelname == "SR20T2-D" || Modelname == "SR20T3-D" || Modelname == "SR20T4-D" || Modelname == "SR20T5-D" || Modelname == "RB26_1-D" || Modelname == "RB26_2-D" || Modelname == "VG30TT-D")
+    if (Modelname == "NISSAN-L" || Modelname == "CA18DET " || Modelname == "SR20DE1 " || Modelname == "SR20DE2 " || Modelname == "SR20DE3 " || Modelname == "SR20DE4 " || Modelname == "SR20DET1" || Modelname == "SR20DET2" || Modelname == "SR20DET3" || Modelname == "SR20DET4" || Modelname == "SR20DET5" || Modelname == "SR20DET6" || Modelname == "SR20T1-D" || Modelname == "SR20T2-D" || Modelname == "SR20T5-D" ||Modelname == "RB20DET " || Modelname == "RB25DET " || Modelname == "RB25DET2" || Modelname == "RB26DETT" || Modelname == "VG30DETT" || Modelname == "CA181PRO" || Modelname == "SR2N1PRO" || Modelname == "SR2N2PRO" || Modelname == "SR2N3PRO" || Modelname == "SR2N4PRO" || Modelname == "SR201PRO" || Modelname == "SR202PRO" || Modelname == "SR203PRO" || Modelname == "SR204PRO" || Modelname == "SR205PRO" || Modelname == "SR206PRO" || Modelname == "RB201PRO" || Modelname == "RB251PRO" || Modelname == "RB252PRO" || Modelname == "RB261PRO" || Modelname == "RB262PRO" || Modelname == "RB26Pro " || Modelname == "RB26PRO " || Modelname == "RB26PRO1" || Modelname == "RB25PRO2" || Modelname == "CA18T1-D" || Modelname == "SR20T1-D" || Modelname == "SR20T2-D" || Modelname == "SR20T3-D" || Modelname == "SR20T4-D" || Modelname == "SR20T5-D" || Modelname == "RB26_1-D" || Modelname == "RB26_2-D" || Modelname == "VG30TT-D")
     {
         Model =2;
     }
@@ -811,7 +815,7 @@ void Apexi::decodeInit(QByteArray rawmessagedata)
     {
         Model =3;
     }    
-    m_dashboard->setPlatform(QString(rawmessagedata).mid(2,8));
+    m_dashboard->setPlatform(QString(rawmessagedata).mid(2,8) + QString::number(Model));
 }
 
 void Apexi::decodeSensorStrings(QByteArray rawmessagedata)

@@ -52,7 +52,7 @@ void udpreceiver::processPendingDatagrams()
 
         QDataStream in(&datagram, QIODevice::ReadOnly);
         QString raw = datagram.data();
-        //qDebug()<<raw;
+        qDebug()<<raw;
         if (raw.isEmpty())
         {raw ="0,0";}
         if (raw.contains(","))
@@ -799,28 +799,28 @@ void udpreceiver::processPendingDatagrams()
             //Catalyst Temp Bank1 S1
             break;
         case 278:
-            //Manifold Gauge Pressure kPa
+            m_dashboard->setBoostPreskpa(Value);
             break;
         case 279:
-            //Digital Input 1
+            m_dashboard->setDigitalInput1(Value);
             break;
         case 280:
-            //Digital Input 2
+            m_dashboard->setDigitalInput2(Value);
             break;
         case 281:
-            //Digital Input 3
+            m_dashboard->setDigitalInput3(Value);
             break;
         case 282:
-            //Digital Input 4
+            m_dashboard->setDigitalInput4(Value);
             break;
         case 283:
-            //Digital Input 5
+            m_dashboard->setDigitalInput5(Value);
             break;
         case 284:
-            //Digital Input 6
+            m_dashboard->setDigitalInput6(Value);
             break;
         case 285:
-            //Digital Input 7
+            m_dashboard->setDigitalInput7(Value);
             break;
         case 286:
             m_dashboard->setUserchannel1(Value);
@@ -930,6 +930,132 @@ void udpreceiver::processPendingDatagrams()
 
         case 830:
             m_dashboard->setturborpm2(Value);
+        case 831:
+            m_dashboard->setAuxTemp1(Value);
+        case 832:
+             m_dashboard->setIGBTPhaseATemp(Value);
+             break;
+         case 833:
+             m_dashboard->setIGBTPhaseBTemp(Value);
+             break;
+         case 834:
+             m_dashboard->setIGBTPhaseCTemp(Value);
+             break;
+         case 835:
+             m_dashboard->setGateDriverTemp(Value);
+             break;
+         case 836:
+             m_dashboard->setControlBoardTemp(Value);
+             break;
+         case 837:
+             m_dashboard->setRtdTemp1(Value);
+             break;
+         case 838:
+             m_dashboard->setRtdTemp2(Value);
+             break;
+         case 839:
+             m_dashboard->setRtdTemp3(Value);
+             break;
+         case 840:
+             m_dashboard->setRtdTemp4(Value);
+             break;
+         case 841:
+             m_dashboard->setRtdTemp5(Value);
+             break;
+         case 842:
+             m_dashboard->setEMotorTemperature(Value);
+             break;
+         case 843:
+             m_dashboard->setTorqueShudder(Value);
+             break;
+         case 844:
+             m_dashboard->setDigInput1FowardSw(Value);
+             break;
+         case 845:
+             m_dashboard->setDigInput2ReverseSw(Value);
+             break;
+         case 846:
+             m_dashboard->setDigInput3BrakeSw(Value);
+             break;
+         case 847:
+             m_dashboard->setDigInput4RegenDisableSw(Value);
+             break;
+         case 848:
+             m_dashboard->setDigInput5IgnSw(Value);
+             break;
+         case 849:
+             m_dashboard->setDigInput6StartSw(Value);
+             break;
+         case 850:
+             m_dashboard->setDigInput7Bool(Value);
+             break;
+         case 851:
+             m_dashboard->setDigInput8Bool(Value);
+             break;
+         case 852:
+             m_dashboard->setEMotorAngle(Value);
+             break;
+         case 853:
+             m_dashboard->setEMotorSpeed(Value);
+             break;
+         case 854:
+             m_dashboard->setElectricalOutFreq(Value);
+             break;
+         case 855:
+             m_dashboard->setDeltaResolverFiltered(Value);
+             break;
+         case 856:
+             m_dashboard->setPhaseACurrent(Value);
+             break;
+         case 857:
+             m_dashboard->setPhaseBCurrent(Value);
+             break;
+         case 858:
+             m_dashboard->setPhaseCCurrent(Value);
+             break;
+         case 859:
+             m_dashboard->setDCBusCurrent(Value);
+             break;
+         case 860:
+             m_dashboard->setDCBusVoltage(Value);
+             break;
+         case 861:
+             m_dashboard->setOutputVoltage(Value);
+             break;
+         case 862:
+             m_dashboard->setVABvdVoltage(Value);
+             break;
+         case 863:
+             m_dashboard->setVBCvqVoltage(Value);
+             break;
+
+
+        case 864:
+            m_dashboard->setTiretempLF(Value);
+            break;
+        case 865:
+            m_dashboard->setTiretempRF(Value);
+            break;
+        case 866:
+            m_dashboard->setTiretempLR(Value);
+            break;
+        case 867:
+            m_dashboard->setTiretempRR(Value);
+            break;
+        case 868:
+            m_dashboard->setTirepresLF(Value);
+            break;
+        case 869:
+            m_dashboard->setTirepresRF(Value);
+            break;
+        case 870:
+            m_dashboard->setTirepresLR(Value);
+            break;
+        case 871:
+            m_dashboard->setTirepresRR(Value);
+            break;
+
+
         case 999:
             break;
         default:

@@ -198,7 +198,7 @@ void Connect::readavailablebackrounds()
 {
     //QDir directory(""); //for Windows
     QDir directory("/home/pi/Logo");
-    QStringList dashfiles = directory.entryList(QStringList() << "*.png",QDir::Files);
+    QStringList dashfiles = directory.entryList(QStringList() << "*.png" << "*.gif",QDir::Files);
     dashfiles.prepend("None");
     m_dashBoard->setbackroundpictures(dashfiles);
 }
@@ -799,7 +799,7 @@ void Connect::daemonstartup(const int &daemon)
         daemonstart = "./FordBarraFG2xCAN";
         break;
     case 23:
-        daemonstart = "./FordBarraFG2xCANOBD";
+        daemonstart = "./FordBarraFG2XCANOBD";
         break;
     case 24:
         daemonstart = "./EVOXCAN";
@@ -813,6 +813,32 @@ void Connect::daemonstartup(const int &daemon)
     case 27:
         daemonstart = "./GMCANd";
         break;
+    case 28:
+        daemonstart = "./NISSAN350Z";
+        break;
+    case 29:
+        daemonstart = "./MegasquirtCan";
+        break;
+    case 30:
+        daemonstart = "./EMSCAN";
+        break;
+    case 31:
+        daemonstart = "./WRX2012";
+        break;
+    case 32:
+        daemonstart = "./M800ADLSet3d";
+        break;
+    case 33:
+        daemonstart = "./Testdaemon";
+        break;
+    case 34:
+        daemonstart = "./ecoboost";
+        break;
+    case 35:
+        daemonstart = "./Emerald";
+    case 36:
+        daemonstart = "./WolfEMS";
+        break;
     }
     QString fileName = "/home/pi/startdaemon.sh";//This will be the correct path on pi
     //QString fileName = "startdaemon.sh";//for testing on windows
@@ -824,6 +850,12 @@ void Connect::daemonstartup(const int &daemon)
         << "sudo ifdown can0"
         << endl
         << "sudo ifup can0"
+        << endl
+        << "#PLMS Consult Cable drivers"
+        << endl
+        << "sudo modprobe ftdi_sio"
+        << endl
+        << "sudo sh -c 'echo \"0403 c7d9\" > /sys/bus/usb-serial/drivers/ftdi_sio/new_id'"
         << endl
         << "cd /home/pi/daemons"
         << endl
@@ -844,9 +876,12 @@ void Connect::canbitratesetup(const int &cansetting)
     switch (cansetting)
     {
     case 0:
-        canbitrate = "500000";
+        canbitrate = "250000";
         break;
     case 1:
+        canbitrate = "500000";
+        break;
+    case 2:
         canbitrate = "1000000";
         break;
 
@@ -873,6 +908,20 @@ void Connect::canbitratesetup(const int &cansetting)
         << endl
         << "bitrate " << canbitrate
         << endl;
+
+    /*
+# interfaces(5) file used by ifup(8) and ifdown(8)
+# Please note that this file is written to be used with dhcpcd
+# For static IP, consult /etc/dhcpcd.conf and 'man dhcpcd.conf'
+# Include files from /etc/network/interfaces.d:
+source-directory /etc/network/interfaces.d
+#Automatically start CAN Interface
+auto can0
+iface can0 can static
+bitrate 1000000
+*/
+
+
 
     mFile.close();
 
@@ -1136,7 +1185,13 @@ void Connect::update()
         //connect( p, SIGNAL(readyReadStandardError()), this, SLOT(ReadErr()) );
     }
 }
-
+void Connect::changefolderpermission()
+{
+    QProcess *process = new QProcess(this);
+    process->start("sudo chown -R pi:pi /home/pi/KTracks");
+    process->waitForFinished(100); // 10 minutes time before timeout
+    reboot();
+}
 void Connect::shutdown()
 {
     m_dashBoard->setSerialStat("Shutting Down");
